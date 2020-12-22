@@ -72,9 +72,9 @@ const QuestionsPage: NextPage<{questions: QuestionType[]}> = ({questions}) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({params,res}) => {
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
   try {
-    const result = await fetch(`http://localhost:3000/api/questions`);
+    const result = await fetch(`http://${req.headers.host}/api/questions`);
     const questions: QuestionType[] = await result.json();
 
     return {
