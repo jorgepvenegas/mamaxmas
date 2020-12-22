@@ -6,8 +6,8 @@ module.exports = (phase, { env }) => {
 
   return {
     env: {
-      USER: isDev ? "user" : secrets.USER,
-      PASS: isDev ? "pass" : secrets.PASS,
+      USERNAME: isDev ? "foo" : secrets.USERNAME,
+      PASSWORD: isDev ? "bar" : secrets.PASSWORD,
     },
   };
 };
