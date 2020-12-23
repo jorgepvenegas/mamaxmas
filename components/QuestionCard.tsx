@@ -12,7 +12,6 @@ import { QuestionType } from "../lib/types";
 
 
 const useQuestion = id => {
-
   const fetchQuestion = async (url: string) => {
     const res = await fetch(url);
     if (!res.ok) {
@@ -33,8 +32,9 @@ const useQuestion = id => {
 
 const QuestionCard: FunctionComponent = () => {
 
-  const { activeId } = useContext(AppContext);
+  const { activeId, questionLimit } = useContext(AppContext);
   const { question, isLoading, isError } = useQuestion(activeId);
+  const isFinalStep = activeId === questionLimit;
 
   if (isError) {
     return (
@@ -60,10 +60,11 @@ const QuestionCard: FunctionComponent = () => {
             instruction={question.instruction}
             content={question.content}
             answer={question.answer}
+            isFinalStep={isFinalStep}
           />
         ) : null}
         {question.type === "message" ? (
-          <MessageArea instruction={question.instruction} imgUrl={question.imgUrl} />
+          <MessageArea instruction={question.instruction} imgUrl={question.imgUrl} isFinalStep={isFinalStep} />
         ) : null}
       </Box>
     </Box>
