@@ -2,13 +2,15 @@ import useSWR from "swr";
 import {
   Box,
   Alert,
-  Heading
+  Heading,
+  Progress,
 } from "@chakra-ui/react";
 import { FunctionComponent, useContext } from "react";
 import AppContext from "../context/app";
 import MessageArea from "../components/MessageArea";
 import QuestionArea from "../components/QuestionArea";
 import { QuestionType } from "../lib/types";
+import { parse } from "dotenv/types";
 
 
 const useQuestion = id => {
@@ -67,6 +69,7 @@ const QuestionCard: FunctionComponent = () => {
           <MessageArea instruction={question.instruction} imgUrl={question.imgUrl} isFinalStep={isFinalStep} />
         ) : null}
       </Box>
+      <Progress isAnimated hasStripe colorScheme="red" marginTop={10} value={100 * parseInt(activeId) / parseInt(questionLimit)} />
     </Box>
   );
 };
