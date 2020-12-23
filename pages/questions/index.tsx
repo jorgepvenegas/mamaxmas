@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { NextPage, GetServerSideProps } from "next";
+import AppContext from "../../context/app";
 import ErrorPage from "next/error";
 import {
   Box,
@@ -7,8 +9,7 @@ import {
   Flex,
   Image,
   Text,
-  ListItem,
-  UnorderedList,
+  Center,
   FormControl,
   Button,
   Progress,
@@ -23,11 +24,11 @@ const QuestionArea: FunctionComponent<{
   return (
     <FormControl id="email">
       <Text fontSize="xl">{instruction}</Text>
-      <Box marginY={10}>
-        <Text as="cite" lineHeight={10} marginLeft={10} fontSize="xl">
-          {content}
+      <Center marginY={10} w={"70%"}>
+        <Text as="cite" lineHeight={10} marginLeft={10} fontSize="xl" aria-multiline >
+          {content.split("\n").map((text, i) => <p key={i}>{text}</p>)}
         </Text>
-      </Box>
+      </Center>
       <Flex flexDirection="column">
         <Input type="text" placeholder={"Type your answer"} />
         {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
@@ -65,7 +66,7 @@ const QuestionCard: FunctionComponent<QuestionType> = ({
   imgUrl,
 }) => {
   return (
-    <ListItem
+    <Box
       w="100%"
       padding={7}
       borderRadius={10}
@@ -83,26 +84,25 @@ const QuestionCard: FunctionComponent<QuestionType> = ({
           <MessageArea instruction={instruction} imgUrl={imgUrl} />
         ) : null}
       </Box>
-    </ListItem>
+    </Box>
   );
 };
 
 const QuestionsPage: NextPage<{ questions: QuestionType[] }> = ({
   questions,
 }) => {
-  if (!questions) {
+
+  const { activeId } = useContext(AppContext);
+  const activeQuestion = questions.find(q => q.id === activeId);
+
+  if (!activeQuestion) {
     return <ErrorPage statusCode={404} />;
   }
   return (
-    <Flex flexDirection="column" alignItems="center">
-      <Heading as="h1">Questions</Heading>
+    <Flex flexDirection="column" alignItems="center" marginTop={20}>
       <Box w="3xl" className="question-container">
-        <UnorderedList>
-          {questions.map((q, i) => {
-            return <QuestionCard key={i} {...q} />;
-          })}
-        </UnorderedList>
-        <Progress value={80} />
+        <QuestionCard {...activeQuestion} />;
+        <Progress value={10} />
       </Box>
     </Flex>
   );

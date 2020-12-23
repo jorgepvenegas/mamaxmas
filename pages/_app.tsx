@@ -1,5 +1,6 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
+import ContextWrapper from "../components/ContextWrapper";
 
 const globalTheme = {
   "html, body": {
@@ -19,7 +20,9 @@ const customTheme = extendTheme({
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <ChakraProvider resetCSS={true} theme={customTheme}>
-      <Component {...pageProps} />
+      <ContextWrapper>
+        <Component {...pageProps} />
+      </ContextWrapper>
     </ChakraProvider>
   )
 }
