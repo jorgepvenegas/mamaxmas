@@ -2,11 +2,10 @@ import {
   Flex,
   Text,
   Center,
-  FormControl,
-  Input,
-  Button
+  FormControl
 } from "@chakra-ui/react";
-import { FunctionComponent, useContext, useState } from "react";
+import QuestionForm from "../components/QuestionForm";
+import { FunctionComponent, useContext } from "react";
 import AppContext from "../context/app";
 
 const QuestionArea: FunctionComponent<{
@@ -17,21 +16,6 @@ const QuestionArea: FunctionComponent<{
 }> = ({ instruction, content, answer, isFinalStep }) => {
 
   const { activeId, setActiveId } = useContext(AppContext);
-  const [guess, setGuess] = useState("");
-
-  const validateGuess = () => {
-
-    if (isFinalStep) { // duplicated
-      console.log("redirect to /frames")
-    }
-
-    if (answer.toLowerCase().trim() === guess.toLowerCase().trim()) {
-      setActiveId(activeId + 1);
-    }
-    else {
-      console.log("Try again")
-    }
-  }
 
   return (
     <FormControl id="email">
@@ -42,10 +26,16 @@ const QuestionArea: FunctionComponent<{
         </Text>
       </Center>
       <Flex flexDirection="column">
-        <Input type="text" placeholder={"Type your answer"} value={guess} onChange={(e) => setGuess(e.currentTarget.value)} />
-        <Button type="submit" mt={2} colorScheme="green" size={"md"} onClick={() => validateGuess()}>
-          {isFinalStep ? "Go to final step!" : "Submit Answer"}
-        </Button>
+        <QuestionForm
+          onSuccess={() => {
+            setActiveId(activeId + 1);
+          }}
+          color="green"
+          questionName={`question-${activeId}`}
+          answer={answer}
+          errorMessage={"Nope"}
+          buttonText={isFinalStep ? "Go to final step!" : "Submit Answer"}
+        />
       </Flex>
     </FormControl>
   );

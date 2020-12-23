@@ -10,7 +10,6 @@ import AppContext from "../context/app";
 import MessageArea from "../components/MessageArea";
 import QuestionArea from "../components/QuestionArea";
 import { QuestionType } from "../lib/types";
-import { parse } from "dotenv/types";
 
 
 const useQuestion = id => {
