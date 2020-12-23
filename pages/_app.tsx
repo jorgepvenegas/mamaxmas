@@ -10,11 +10,13 @@ const globalTheme = {
   }
 };
 
-const customTheme = extendTheme({ styles: {
-  global: globalTheme,
-} });
+const customTheme = extendTheme({
+  styles: {
+    global: globalTheme,
+  }
+});
 
-const App = ({Component, pageProps}: AppProps) => {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <ChakraProvider resetCSS={true} theme={customTheme}>
       <Component {...pageProps} />

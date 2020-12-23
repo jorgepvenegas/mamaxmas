@@ -1,4 +1,4 @@
-import {NextApiHandler} from "next";
+import { NextApiHandler } from "next";
 import { questionList } from "../../lib/questions";
 
 // enum ScreenCategory {
@@ -15,16 +15,15 @@ type Question = {
   imgUrl?: string;
   content?: string;
   answer?: string;
-}
+};
 
-const questions:NextApiHandler = (req, res) => {
+const questions: NextApiHandler = (req, res) => {
   const result: Question[] = questionList;
-  if(result) {
+  if (result) {
     res.status(200).json(result);
-  }
-  else {
+  } else {
     res.status(404).end();
   }
-}
+};
 
 export default questions;
