@@ -4,14 +4,17 @@ import {
   Text,
   Center,
   FormControl,
-  Button,
+  Button
 } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import AppContext from "../context/app";
 
 const QuestionArea: FunctionComponent<{
   instruction: string;
   content: string;
-}> = ({ instruction, content }) => {
+  answer: string;
+}> = ({ instruction, content, answer }) => {
+
   return (
     <FormControl id="email">
       <Text fontSize="xl">{instruction}</Text>
@@ -22,7 +25,6 @@ const QuestionArea: FunctionComponent<{
       </Center>
       <Flex flexDirection="column">
         <Input type="text" placeholder={"Type your answer"} />
-        {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
         <Button mt={2} colorScheme="green" type="submit" size={"md"}>
           Submit Answer
         </Button>
