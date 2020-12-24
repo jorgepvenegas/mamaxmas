@@ -2,7 +2,7 @@ import { useState } from "react";
 import AppContext from "../context/app";
 
 const ContextWrapper = ({ children }) => {
-  const [activeId, setActiveId] = useState(9);
+  const [activeId, setActiveId] = useState(1);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [selectedFrame, setSelectedFrame] = useState(null);
 
