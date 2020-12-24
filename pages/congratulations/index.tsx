@@ -42,6 +42,7 @@ const CongratulationsPage: NextPage = () => {
             <Box marginTop={10} width="80%">
               <Center>
                 <Image
+                  rounded={10}
                   marginBottom={10}
                   src={`https://media.giphy.com/media/lXmHuSKBb9VQY/giphy.gif`}></Image>
               </Center>

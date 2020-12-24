@@ -65,7 +65,6 @@ const FramePage: NextPage = () => {
     setSelectedPhotos(selectedPhotos);
     router.push("/frames");
   };
-
   return (
     <Flex flexDirection="column" alignItems="center" marginTop={20}>
       <Box

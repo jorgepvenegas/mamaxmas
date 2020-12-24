@@ -4,7 +4,6 @@ import { Text, Heading, Flex, Box, Center, Image } from "@chakra-ui/react";
 import { NextPage } from "next";
 
 const IndexPage: NextPage = () => {
-  const { NEXT_PUBLIC_USERNAME } = process.env;
   const router = useRouter();
 
   return (
@@ -18,17 +17,18 @@ const IndexPage: NextPage = () => {
         align="center"
         marginBottom={10}>
         <Heading as="h1" size="xl">
-          Hi {NEXT_PUBLIC_USERNAME}! Welcome!
+          Seasons Greetings!
         </Heading>
         <Box marginTop={10}>
           <Box width="70%">
             <Center>
               <Image
                 marginBottom={10}
+                rounded={10}
                 src={`https://media.giphy.com/media/3o6fJcaJImuodOjEis/giphy.gif`}></Image>
             </Center>
             <Text marginBottom={10} fontSize={25}>
-              Oh hello there! Enter the magic word
+              Check your phone for the secret code to begin your yuletide quest.
             </Text>
             <MagicWordForm
               color="red"
@@ -37,6 +37,7 @@ const IndexPage: NextPage = () => {
               errorMessage="Not so fast! That's incorrect."
               buttonText={"Let's Go!"}
               onSuccess={() => {
+                // localStorage.setItem("isLoggedIn", "true");
                 router.push(`/questions`);
               }}
             />
