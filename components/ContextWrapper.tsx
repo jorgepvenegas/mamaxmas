@@ -4,6 +4,7 @@ import AppContext from "../context/app";
 const ContextWrapper = ({ children }) => {
   const [activeId, setActiveId] = useState(9);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const [selectedFrame, setSelectedFrame] = useState(null);
 
   console.log("selectedPhotos", selectedPhotos);
   const questionLimit = 9; // hardcoded
@@ -15,6 +16,8 @@ const ContextWrapper = ({ children }) => {
         questionLimit,
         setSelectedPhotos,
         selectedPhotos,
+        selectedFrame,
+        setSelectedFrame,
       }}>
       {children}
     </AppContext.Provider>

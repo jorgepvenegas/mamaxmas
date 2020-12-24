@@ -60,7 +60,7 @@ const FramePage: NextPage = () => {
     updatePhotos(updatedList);
   };
 
-  const continueToFrames = () => {
+  const continueToNextStep = () => {
     const selectedPhotos = photos.filter(p => p.selected);
     setSelectedPhotos(selectedPhotos);
     router.push("/frames");
@@ -121,7 +121,7 @@ const FramePage: NextPage = () => {
             mt={4}
             colorScheme="red"
             disabled={totalSelected === 0}
-            onClick={() => continueToFrames()}>
+            onClick={() => continueToNextStep()}>
             {totalSelected === 0
               ? "Select your photos"
               : `Great! Let's find a frame`}

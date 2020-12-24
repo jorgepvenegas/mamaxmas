@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Box,
   Checkbox,
@@ -19,6 +19,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import AppContext from "../../context/app";
 
 // type Photo = {
 //   id: number;
@@ -37,23 +38,33 @@ const getFrameList = () => {
 
 const FramePage: NextPage = () => {
   const SELECTION_LIMIT = 1;
-  const [modalPhoto, setModalPhoto] = useState(null);
+  const [frame, setFrame] = useState(null);
   const [totalSelected, setTotalSelected] = useState(0);
   const [frames, updateFrames] = useState(getFrameList());
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const { setSelectedFrame } = useContext(AppContext);
 
-  const handlePhotoSelection = (num: number) => {
+  const handleFrameSelection = (num: number) => {
     const updatedList = frames.map(p => {
       if (p.id === num) {
         p.selected = !p.selected;
-        p.selected
-          ? setTotalSelected(totalSelected + 1)
-          : setTotalSelected(totalSelected - 1);
+        if (p.selected) {
+          setTotalSelected(totalSelected + 1);
+          setFrame(p.id);
+        } else {
+          setFrame(null);
+          setTotalSelected(totalSelected - 1);
+        }
       }
       return p;
     });
     updateFrames(updatedList);
+  };
+
+  const continueToNextStep = () => {
+    setSelectedFrame(frame);
+    router.push("/congratulations");
   };
 
   return (
@@ -67,7 +78,7 @@ const FramePage: NextPage = () => {
         bg="white"
         align="center"
         marginBottom={10}>
-        <Heading as="h2">Now let's get a frame</Heading>
+        <Heading as="h2">Now let's get a frame for your photos</Heading>
         {/* <Heading as="h4" size="md">
           You have {SELECTION_LIMIT - totalSelected} photos left!
         </Heading> */}
@@ -87,7 +98,7 @@ const FramePage: NextPage = () => {
                 objectFit="scale-down"
                 src={`${process.env.NEXT_PUBLIC_ASSETS}/assets/frames/${id}.jpeg`}
                 onClick={() => {
-                  setModalPhoto(id);
+                  setFrame(id);
                   onOpen();
                 }}
               />
@@ -96,7 +107,7 @@ const FramePage: NextPage = () => {
                   isChecked={selected}
                   isDisabled={!selected && totalSelected === SELECTION_LIMIT}
                   onChange={() => {
-                    handlePhotoSelection(id);
+                    handleFrameSelection(id);
                   }}>
                   Select
                 </Checkbox>
@@ -109,10 +120,10 @@ const FramePage: NextPage = () => {
             mt={8}
             colorScheme="red"
             disabled={totalSelected === 0}
-            onClick={() => {
-              router.push("/congratulations");
-            }}>
-            {totalSelected === 0 ? "Select your frame" : `All set!`}
+            onClick={() => continueToNextStep()}>
+            {totalSelected === 0
+              ? "Select your frame"
+              : `That's beautiful! You're all set!`}
           </Button>
         </Flex>
       </Box>
@@ -121,7 +132,7 @@ const FramePage: NextPage = () => {
         isOpen={isOpen}
         isCentered={true}
         onClose={() => {
-          setModalPhoto(null);
+          setFrame(null);
           onClose();
         }}>
         <ModalOverlay />
@@ -131,7 +142,7 @@ const FramePage: NextPage = () => {
           <ModalBody>
             <Center>
               <Image
-                src={`${process.env.NEXT_PUBLIC_ASSETS}/assets/frames/${modalPhoto}.jpeg`}></Image>
+                src={`${process.env.NEXT_PUBLIC_ASSETS}/assets/frames/${frame}.jpeg`}></Image>
             </Center>
           </ModalBody>
 
@@ -139,7 +150,7 @@ const FramePage: NextPage = () => {
             <Button
               colorScheme="red"
               onClick={() => {
-                setModalPhoto(null);
+                setFrame(null);
                 onClose();
               }}>
               Close
