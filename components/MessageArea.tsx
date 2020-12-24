@@ -8,12 +8,12 @@ const MessageArea: FunctionComponent<{
   imgUrl: string;
   isFinalStep: boolean;
 }> = ({ instruction, imgUrl, isFinalStep }) => {
-  const { activeId, setActiveId } = useContext(AppContext);
+  const { activeId, setActiveId, setIsFinished } = useContext(AppContext);
   const router = useRouter();
 
   const goToNextStep = () => {
     if (isFinalStep) {
-      // Duplicated code
+      setIsFinished(true);
       router.push("/photos");
     } else {
       setActiveId(activeId + 1);
@@ -27,12 +27,15 @@ const MessageArea: FunctionComponent<{
         </Text>
       </Box>
       <Flex justifyContent="center">
-        <Image src={imgUrl}></Image>
+        <Image
+          rounded={10}
+          maxHeight={600}
+          src={`${process.env.NEXT_PUBLIC_ASSETS}/${imgUrl}`}></Image>
       </Flex>
       <Flex flexDirection="column">
         <Button
           type="submit"
-          mt={2}
+          mt={10}
           colorScheme="green"
           size={"md"}
           onClick={() => goToNextStep()}>
