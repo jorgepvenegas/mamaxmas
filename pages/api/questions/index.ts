@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { questionList } from "../../../lib/questions";
+import { questionList } from "../../../lib/data";
 
 // enum ScreenCategory {
 //   Hint = "hint",

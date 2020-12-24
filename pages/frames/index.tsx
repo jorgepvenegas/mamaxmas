@@ -18,14 +18,15 @@ import {
   Modal,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 // type Photo = {
 //   id: number;
 //   isSelected: boolean;
 // };
 
-const getPhotoList = () => {
-  // Hardode a photo list
+const getFrameList = () => {
+  // Hardode a frame list
   return [1, 2, 3, 4, 5, 6, 7, 8].map(num => {
     return {
       id: num,
@@ -35,14 +36,15 @@ const getPhotoList = () => {
 };
 
 const FramePage: NextPage = () => {
-  const SELECTION_LIMIT = 4;
+  const SELECTION_LIMIT = 1;
   const [modalPhoto, setModalPhoto] = useState(null);
   const [totalSelected, setTotalSelected] = useState(0);
-  const [photos, updatePhotos] = useState(getPhotoList());
+  const [frames, updateFrames] = useState(getFrameList());
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
   const handlePhotoSelection = (num: number) => {
-    const updatedList = photos.map(p => {
+    const updatedList = frames.map(p => {
       if (p.id === num) {
         p.selected = !p.selected;
         p.selected
@@ -51,38 +53,39 @@ const FramePage: NextPage = () => {
       }
       return p;
     });
-    updatePhotos(updatedList);
+    updateFrames(updatedList);
   };
 
   return (
     <Flex flexDirection="column" alignItems="center" marginTop={20}>
       <Box
         w="90%"
-        maxWidth={1024}
+        // maxWidth={1024}
         minHeight={700}
         padding={7}
         borderRadius={10}
         bg="white"
         align="center"
         marginBottom={10}>
-        <Heading as="h2">Photo picking!</Heading>
-        <Heading as="h4" size="md">
+        <Heading as="h2">Now let's get a frame</Heading>
+        {/* <Heading as="h4" size="md">
           You have {SELECTION_LIMIT - totalSelected} photos left!
-        </Heading>
-        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-          {photos.map(({ id, selected }, key) => (
+        </Heading> */}
+        <Grid templateColumns="repeat(4, 2fr)" gap={6}>
+          {frames.map(({ id, selected }, key) => (
             <Box
               key={key}
               w="100%"
               padding={5}
               marginBottom={5}
-              bg={selected ? "red.200" : "gray.200"}
+              bg={selected ? "gray.200" : "gray.100"}
               rounded={10}>
               <Image
                 boxSize="100%"
+                boxSizing="content-box"
                 cursor="pointer"
-                objectFit="cover"
-                src={`${process.env.NEXT_PUBLIC_ASSETS}/images/photos/photo-${id}.jpg`}
+                objectFit="scale-down"
+                src={`${process.env.NEXT_PUBLIC_ASSETS}/assets/frames/${id}.jpeg`}
                 onClick={() => {
                   setModalPhoto(id);
                   onOpen();
@@ -102,10 +105,14 @@ const FramePage: NextPage = () => {
           ))}
         </Grid>
         <Flex flexDirection="column">
-          <Button mt={4} colorScheme="red" disabled={totalSelected === 0}>
-            {totalSelected === 0
-              ? "Select your photos"
-              : `Great! Let's find a frame`}
+          <Button
+            mt={8}
+            colorScheme="red"
+            disabled={totalSelected === 0}
+            onClick={() => {
+              router.push("/congratulations");
+            }}>
+            {totalSelected === 0 ? "Select your frame" : `All set!`}
           </Button>
         </Flex>
       </Box>
@@ -124,7 +131,7 @@ const FramePage: NextPage = () => {
           <ModalBody>
             <Center>
               <Image
-                src={`${process.env.NEXT_PUBLIC_ASSETS}/images/photos/photo-${modalPhoto}.jpg`}></Image>
+                src={`${process.env.NEXT_PUBLIC_ASSETS}/assets/frames/${modalPhoto}.jpeg`}></Image>
             </Center>
           </ModalBody>
 

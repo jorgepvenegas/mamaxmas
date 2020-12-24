@@ -1,12 +1,7 @@
-import {
-  Flex,
-  Text,
-  Box,
-  Image,
-  Button
-} from "@chakra-ui/react";
+import { Flex, Text, Box, Image, Button } from "@chakra-ui/react";
 import { FunctionComponent, useContext } from "react";
 import AppContext from "../context/app";
+import { useRouter } from "next/router";
 
 const MessageArea: FunctionComponent<{
   instruction: string;
@@ -14,15 +9,16 @@ const MessageArea: FunctionComponent<{
   isFinalStep: boolean;
 }> = ({ instruction, imgUrl, isFinalStep }) => {
   const { activeId, setActiveId } = useContext(AppContext);
+  const router = useRouter();
 
   const goToNextStep = () => {
-    if (isFinalStep) { // duplicated
-      console.log("redirect to /frames")
-    }
-    else {
+    if (isFinalStep) {
+      // Duplicated code
+      router.push("/photos");
+    } else {
       setActiveId(activeId + 1);
     }
-  }
+  };
   return (
     <>
       <Box marginBottom={10} alignContent="center">
@@ -34,7 +30,12 @@ const MessageArea: FunctionComponent<{
         <Image src={imgUrl}></Image>
       </Flex>
       <Flex flexDirection="column">
-        <Button type="submit" mt={2} colorScheme="green" size={"md"} onClick={() => goToNextStep()}>
+        <Button
+          type="submit"
+          mt={2}
+          colorScheme="green"
+          size={"md"}
+          onClick={() => goToNextStep()}>
           {isFinalStep ? "Go to final step!" : "Continue"}
         </Button>
       </Flex>
