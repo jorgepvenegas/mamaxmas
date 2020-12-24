@@ -1,18 +1,28 @@
 import { Formik, Field, Form } from "formik";
-import { FormControl, FormErrorMessage, Input, Button, Flex } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormErrorMessage,
+  Input,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
 
-const QuestionFormComponent = ({ onSuccess, color, questionName, answer, errorMessage, buttonText }): JSX.Element => {
-
+const QuestionFormComponent = ({
+  onSuccess,
+  color,
+  questionName,
+  answer,
+  errorMessage,
+  buttonText,
+}): JSX.Element => {
   function validateAnswer(value) {
-    console.log(value, answer);
     let error;
     if (!value) {
-      error = "That's a very empty answer."
+      error = "That's a very empty answer.";
+    } else if (value.trim().toLowerCase() !== answer.trim().toLowerCase()) {
+      error = errorMessage;
     }
-    else if (value.trim().toLowerCase() !== answer.trim().toLowerCase()) {
-      error = errorMessage
-    }
-    return error
+    return error;
   }
 
   const initialValues = {};
@@ -27,19 +37,27 @@ const QuestionFormComponent = ({ onSuccess, color, questionName, answer, errorMe
         setTimeout(() => {
           actions.setSubmitting(false);
           onSuccess();
-        }, 1000) // simulate wait.
-      }}
-    >
-      {(props) => (
+        }, 1000); // simulate wait.
+      }}>
+      {props => (
         <Form>
           <Field name={questionName} validate={validateAnswer}>
             {({ field, form }) => {
               return (
-                <FormControl isInvalid={form.errors[questionName] && form.touched[questionName]}>
-                  <Input {...field} id={questionName} placeholder="Ho Ho Ho Ho!" />
-                  <FormErrorMessage>{form.errors[questionName]}</FormErrorMessage>
+                <FormControl
+                  isInvalid={
+                    form.errors[questionName] && form.touched[questionName]
+                  }>
+                  <Input
+                    {...field}
+                    id={questionName}
+                    placeholder="Ho Ho Ho Ho!"
+                  />
+                  <FormErrorMessage>
+                    {form.errors[questionName]}
+                  </FormErrorMessage>
                 </FormControl>
-              )
+              );
             }}
           </Field>
           <Flex flexDirection="column">
@@ -47,15 +65,14 @@ const QuestionFormComponent = ({ onSuccess, color, questionName, answer, errorMe
               mt={4}
               colorScheme={color}
               isLoading={props.isSubmitting}
-              type="submit"
-            >
+              type="submit">
               {buttonText}
             </Button>
           </Flex>
         </Form>
       )}
     </Formik>
-  )
-}
+  );
+};
 
 export default QuestionFormComponent;
