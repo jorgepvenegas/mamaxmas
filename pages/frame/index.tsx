@@ -82,8 +82,7 @@ const FramePage: NextPage = () => {
                 boxSize="100%"
                 cursor="pointer"
                 objectFit="cover"
-                // src={`images/photo-${id}.jpg`}
-                src={`https://via.placeholder.com/800x600`}
+                src={`${process.env.NEXT_PUBLIC_ASSETS}/images/photos/photo-${id}.jpg`}
                 onClick={() => {
                   setModalPhoto(id);
                   onOpen();
@@ -124,8 +123,8 @@ const FramePage: NextPage = () => {
           <ModalCloseButton />
           <ModalBody>
             <Center>
-              {/* <Image src={`images/photo-${modalPhoto}.jpg`}></Image> */}
-              <Image src={`https://via.placeholder.com/800x600`}></Image>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_ASSETS}/images/photos/photo-${modalPhoto}.jpg`}></Image>
             </Center>
           </ModalBody>
 

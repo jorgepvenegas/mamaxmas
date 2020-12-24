@@ -1,6 +1,6 @@
 import MagicWordForm from "../components/QuestionForm";
 import { useRouter } from "next/router";
-import { Text, Heading, Flex, Box } from "@chakra-ui/react";
+import { Text, Heading, Flex, Box, Center, Image } from "@chakra-ui/react";
 import { NextPage } from "next";
 
 const IndexPage: NextPage = () => {
@@ -20,9 +20,16 @@ const IndexPage: NextPage = () => {
         <Heading as="h1" size="xl">
           Hi {NEXT_PUBLIC_USERNAME}! Welcome!
         </Heading>
-        <Box marginTop="40">
+        <Box marginTop={10}>
           <Box width="70%">
-            <Text>Oh hello there! Enter the magic word</Text>
+            <Center>
+              <Image
+                marginBottom={10}
+                src={`https://media.giphy.com/media/3o6fJcaJImuodOjEis/giphy.gif`}></Image>
+            </Center>
+            <Text marginBottom={10} fontSize={25}>
+              Oh hello there! Enter the magic word
+            </Text>
             <MagicWordForm
               color="red"
               questionName="magicWord"
