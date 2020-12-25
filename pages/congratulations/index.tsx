@@ -75,9 +75,9 @@ const CongratulationsPage: NextPage = () => {
                 </Box>
               </Center>
               <Box paddingY={10}>
-                <Text as="cite" fontSize={25}>
+                <Text fontSize={25}>
                   Merry Christmas {NEXT_PUBLIC_USERNAME}. With love from Caroline
-                  and Jorge.
+                  🤶 and Jorge 🎅.
                 </Text>
               </Box>
             </Box>

@@ -8,7 +8,7 @@ const ContextWrapper = ({ children }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const questionLimit = 9; // hardcoded
+  const questionLimit = 10; // hardcoded
   return (
     <AppContext.Provider
       value={{

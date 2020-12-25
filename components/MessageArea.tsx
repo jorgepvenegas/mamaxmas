@@ -22,9 +22,11 @@ const MessageArea: FunctionComponent<{
   return (
     <>
       <Box marginBottom={10} alignContent="center">
-        <Text lineHeight={10} fontSize="xl">
-          {instruction}
-        </Text>
+        {instruction.split("\n").map((text, i) => (
+          <Text lineHeight={10} fontSize="xl" key={i}>
+            {text}
+          </Text>
+        ))}
       </Box>
       <Flex justifyContent="center">
         <Image
