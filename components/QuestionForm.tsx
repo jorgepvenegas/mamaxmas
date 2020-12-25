@@ -14,6 +14,7 @@ const QuestionFormComponent = ({
   answer,
   errorMessage,
   buttonText,
+  inputType = "text",
 }): JSX.Element => {
   function validateAnswer(value) {
     let error;
@@ -50,6 +51,7 @@ const QuestionFormComponent = ({
                   }>
                   <Input
                     {...field}
+                    type={inputType}
                     id={questionName}
                     placeholder="Ho Ho Ho Ho!"
                   />

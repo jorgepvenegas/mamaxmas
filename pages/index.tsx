@@ -41,6 +41,7 @@ const IndexPage: NextPage = () => {
             </Text>
             <MagicWordForm
               color="red"
+              inputType="password"
               questionName="magicWord"
               answer={process.env.NEXT_PUBLIC_TOKEN}
               errorMessage="Not so fast! That's incorrect."
