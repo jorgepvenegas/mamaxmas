@@ -30,7 +30,7 @@ const MessageArea: FunctionComponent<{
         <Image
           rounded={10}
           maxHeight={600}
-          src={`${process.env.NEXT_PUBLIC_ASSETS}/${imgUrl}`}></Image>
+          src={`${process.env.NEXT_PUBLIC_ASSETS}${imgUrl}`}></Image>
       </Flex>
       <Flex flexDirection="column">
         <Button
