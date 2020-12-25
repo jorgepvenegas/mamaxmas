@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -42,8 +42,16 @@ const FramePage: NextPage = () => {
   const [totalSelected, setTotalSelected] = useState(0);
   const [frames, updateFrames] = useState(getFrameList());
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
   const { setSelectedFrame } = useContext(AppContext);
+  const { isLoggedIn } = useContext(AppContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log("Frames isLoggedIn", isLoggedIn);
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+  }, []);
 
   const handleFrameSelection = (num: number) => {
     const updatedList = frames.map(p => {

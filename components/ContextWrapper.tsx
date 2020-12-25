@@ -6,6 +6,7 @@ const ContextWrapper = ({ children }) => {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [selectedFrame, setSelectedFrame] = useState(null);
   const [isFinished, setIsFinished] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const questionLimit = 9; // hardcoded
   return (
@@ -13,6 +14,8 @@ const ContextWrapper = ({ children }) => {
       value={{
         isFinished,
         setIsFinished,
+        isLoggedIn,
+        setIsLoggedIn,
         activeId,
         setActiveId,
         questionLimit,

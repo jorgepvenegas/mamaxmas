@@ -2,9 +2,18 @@ import MagicWordForm from "../components/QuestionForm";
 import { useRouter } from "next/router";
 import { Text, Heading, Flex, Box, Center, Image } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { useContext, useEffect } from "react";
+import AppContext from "../context/app";
 
 const IndexPage: NextPage = () => {
   const router = useRouter();
+  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/questions");
+    }
+  }, []);
 
   return (
     <Flex flexDirection="column" alignItems="center" marginTop={20}>
@@ -37,7 +46,7 @@ const IndexPage: NextPage = () => {
               errorMessage="Not so fast! That's incorrect."
               buttonText={"Let's Go!"}
               onSuccess={() => {
-                // localStorage.setItem("isLoggedIn", "true");
+                setIsLoggedIn(true);
                 router.push(`/questions`);
               }}
             />

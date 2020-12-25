@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import {
   Text,
   Heading,
@@ -10,11 +9,19 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import AppContext from "../../context/app";
-import { useContext } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 
 const CongratulationsPage: NextPage = () => {
-  const { NEXT_PUBLIC_USERNAME } = process.env;
   const router = useRouter();
+  const { isLoggedIn } = useContext(AppContext);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+  }, []);
+  const { NEXT_PUBLIC_USERNAME } = process.env;
   const { selectedFrame, selectedPhotos } = useContext(AppContext);
 
   const isReady = selectedFrame !== null && selectedPhotos.length !== 0;
